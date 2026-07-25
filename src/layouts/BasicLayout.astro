@@ -98,8 +98,10 @@ const schemaJson = JSON.stringify(schema).replace(/</g, "\\u003c");
   <head>
     <meta charset="UTF-8" />
     <meta content="width=device-width" name="viewport" />
-    <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-    <link href="/favicon.ico" rel="icon" sizes="any" />
+    <link rel="icon" href="/favicon-32.png?v=3" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16.png?v=3" type="image/png" sizes="16x16" />
+    <link rel="shortcut icon" href="/favicon.ico?v=3" />
+    <link rel="icon" href="/favicon.svg?v=3" type="image/svg+xml" />
     <meta content={Astro.generator} name="generator" />
     <title>{title}</title>
     <meta content={description} name="description" />
