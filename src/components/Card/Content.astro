@@ -7,8 +7,27 @@ interface Props {
 const { title, body } = Astro.props;
 ---
 
-<div class="flex flex-col gap-3 h-full">
-  {title && <h2 class="text-xl font-bold m-0 z-20">{title}</h2>}
-  {body && <p class="m-0 font-light text-base">{body}</p>}
-  <slot />
+<div class="flex flex-col gap-3 h-full min-h-0">
+  {title && <h2 class="text-xl font-bold m-0 z-20 shrink-0">{title}</h2>}
+  {body && <p class="m-0 font-light text-base shrink-0">{body}</p>}
+  <div class="card-scroll flex-1 min-h-0 overflow-y-auto overscroll-contain">
+    <slot />
+  </div>
 </div>
+
+<style>
+  .card-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #475569 transparent;
+  }
+  .card-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .card-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .card-scroll::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 999px;
+  }
+</style>
