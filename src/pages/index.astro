@@ -5,6 +5,7 @@ import IntroCard from "../components/IntroCard.astro";
 import QuotesCard from "../components/QuotesCard.astro";
 import ContactsCard from "../components/ContactsCard.astro";
 import AboutMe from "../components/AboutMe.astro";
+import BlogCard from "../components/BlogCard.astro";
 import { SITE } from "../site-config";
 ---
 
@@ -53,12 +54,7 @@ import { SITE } from "../site-config";
         Homelab SIEM · PE malware research · Gym App
       </p>
     </Card>
-    <Card
-      href="/blog"
-      colSpan="md:col-span-2"
-      rowSpan="md:row-span-2"
-      title="Blog"
-    />
+    <BlogCard />
     <Card colSpan="md:col-span-1" rowSpan="md:row-span-1">
       <p class="text-xs">
         © {new Date().getFullYear()} · Crafted with Astro by {SITE.author.shortName}.

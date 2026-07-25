@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
+import Card from "./Card/index.astro";
+import { formatDate } from "../lib/helpers";
+
+const latestPosts = (await getCollection("blog"))
+  .sort(
+    (a, b) =>
+      (b.data.pubDate || new Date()).getTime() -
+      (a.data.pubDate || new Date()).getTime(),
+  )
+  .slice(0, 3);
+---
+
+<Card colSpan="md:col-span-2" rowSpan="md:row-span-2" padding="p-5">
+  <div class="h-full flex flex-col min-h-0">
+    <a
+      href="/blog"
+      class="no-underline text-inherit flex items-center justify-between gap-2 mb-3 group/blog"
+    >
+      <h2 class="text-xl font-bold m-0">Blog</h2>
+      <Icon
+        class="h-5 shrink-0 group-hover/blog:text-primary-500 group-hover/blog:translate-x-0.5 group-hover/blog:-translate-y-0.5 transition-transform ease-in-out duration-100"
+        name="ri:arrow-right-up-line"
+      />
+    </a>
+
+    {
+      latestPosts.length ? (
+        <ul class="list-none p-0 m-0 flex flex-col gap-2 flex-1 min-h-0">
+          {latestPosts.map((post) => {
+            const date = post.data.pubDate || new Date();
+            return (
+              <li class="border-b border-dashed border-darkslate-400 last:border-b-0 pb-2 last:pb-0">
+                <a
+                  href={`/blog/${post.id}`}
+                  class="no-underline text-inherit flex justify-between gap-3 items-baseline hover:text-primary-300 transition-colors"
+                >
+                  <span class="text-sm leading-snug truncate min-w-0">
+                    {post.data.title || "Untitled"}
+                  </span>
+                  <time
+                    class="text-[11px] text-darkslate-300 tabular-nums shrink-0 whitespace-nowrap"
+                    datetime={date.toISOString()}
+                  >
+                    {formatDate(date)}
+                  </time>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p class="text-sm text-darkslate-300 m-0">No posts yet.</p>
+      )
+    }
+  </div>
+</Card>
