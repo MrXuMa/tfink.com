@@ -1,0 +1,85 @@
+---
+import Card from "./Card/index.astro";
+import Button from "./Button.astro";
+import { LINKS } from "../lib/constants";
+import { Icon } from "astro-icon/components";
+import { Image } from "astro:assets";
+import { SITE } from "../site-config";
+import BlueManImage from "../assets/BlueMan.webp";
+---
+
+<Card colSpan="md:col-span-3" rowSpan="md:row-span-4">
+  <div class="flex w-full h-full">
+    <div class="flex flex-col justify-between md:max-h-[300px] gap-4">
+      <div class="flex flex-col h-full">
+        <h6 class="text-sm font-light m-0 text-darkslate-300">welcome</h6>
+        
+        <p class="sr-only">
+          Hi, I'm {SITE.author.fullName}, a Computer Science student at Florida
+          State University and Jr SOAR Engineer at Cyflare focused on cybersecurity,
+          detection engineering, and CTFs.
+        </p>
+        <p aria-hidden="true" class="m-0 font-light text-md leading-relaxed">
+          <span>
+            Hi, I'm <b class="font-bold">{SITE.author.fullName}</b>, a CS student
+            at <b class="font-bold">Florida State University</b> and{' '}
+            <b class="font-bold">Jr SOAR Engineer</b> focused on cybersecurity,
+            detection engineering, and CTFs.
+          </span>
+          <br />
+          <span class="block mt-2">
+            Feel free to reach out if you want to talk security, labs, or
+            collaboration.
+          </span>
+        </p>
+      </div>
+      <div class="flex gap-2 lg:gap-4">
+        <a href={LINKS.github} aria-label="github profile" target="_blank">
+          <Button aria-label="github profile">
+            <Icon name="ri:github-fill" />
+            <span class="sr-only">GitHub Profile</span>
+          </Button>
+        </a>
+        <a href={LINKS.linkedin} aria-label="linkedin profile" target="_blank">
+          <Button aria-label="linkedin profile">
+            <Icon name="ri:linkedin-box-fill" />
+            <span class="sr-only">LinkedIn Profile</span>
+          </Button>
+        </a>
+      </div>
+    </div>
+    <Image
+      id="intro-avatar"
+      quality="max"
+      src={BlueManImage}
+      class="w-auto max-h-[300px] select-none absolute right-[-110px] bottom-[-20px] z-[-1] opacity-50 md:opacity-100 md:relative md:right-auto md:bottom-auto md:z-auto pointer-events-none"
+      alt={`illustration for ${SITE.author.firstName}`}
+      loading="eager"
+    />
+  </div>
+</Card>
+
+<script>
+  import { animate } from "motion";
+
+  function initLevitatingAnimation() {
+    const avatarImg = document.getElementById("intro-avatar") as HTMLElement;
+    if (!avatarImg) return;
+
+    animate(
+      avatarImg,
+      { y: [-10, 10, -10] },
+      {
+        duration: 3,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }
+    );
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initLevitatingAnimation);
+  } else {
+    initLevitatingAnimation();
+  }
+</script>

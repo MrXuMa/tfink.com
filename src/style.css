@@ -1,0 +1,59 @@
+:root {
+  --darkslate-50: #f7f7f7;
+  --darkslate-100: #e3e3e3;
+  --darkslate-200: #c9c9c9;
+  --darkslate-300: #6b6b6b;
+  --darkslate-400: #383838;
+  --darkslate-500: #171717;
+  --darkslate-600: #141414;
+  --darkslate-700: #111111;
+  --darkslate-800: #0e0e0e;
+  --darkslate-900: #0b0b0b;
+
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+
+  --font-jetbrains-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-maple-mono: "Maple Mono", ui-monospace, monospace;
+}
+
+html {
+  overscroll-behavior: none;
+  background-color: var(--darkslate-900);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--darkslate-900);
+  color: var(--darkslate-50);
+  isolation: isolate;
+  margin: 0;
+}
+
+body::before {
+  --line-color: var(--darkslate-400);
+  --line-size: 80px;
+  content: "";
+  height: 100vh;
+  width: 101vw;
+  position: fixed;
+  background:
+    linear-gradient(90deg, var(--line-color) 1px, transparent 1px) center /
+      var(--line-size) var(--line-size),
+    linear-gradient(var(--line-color) 1px, transparent 1px) center /
+      var(--line-size) var(--line-size);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  -webkit-mask: linear-gradient(-360deg, transparent 40%, white);
+  mask: linear-gradient(-360deg, transparent 40%, white);
+  pointer-events: none;
+}

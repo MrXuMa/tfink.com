@@ -1,0 +1,33 @@
+---
+import Card from "./Card/index.astro";
+import { LINKS } from "../lib/constants";
+import { SITE } from "../site-config";
+---
+
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-4">
+  <div class="h-full">
+    <header class="flex items-center">
+      <h2 class="text-white text-xl font-bold">Let's connect</h2>
+    </header>
+    <address class="flex flex-col mt-4 not-italic">
+      <h2 class="text-darkslate-300">Details</h2>
+      <p>{SITE.location.countryName}</p>
+      <p>tdfink54@gmail.com</p>
+    </address>
+    <div class="flex flex-col mt-4 w-fit">
+      <h2 class="text-darkslate-300">Socials</h2>
+      <ul>
+        <li>
+          <a href={LINKS.linkedin} target="_blank" rel="noopener noreferrer"
+            >LinkedIn</a
+          >
+        </li>
+        <li>
+          <a href={LINKS.github} target="_blank" rel="noopener noreferrer"
+            >GitHub</a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</Card>

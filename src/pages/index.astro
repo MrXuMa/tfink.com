@@ -1,21 +1,68 @@
 ---
-
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card/index.astro";
+import IntroCard from "../components/IntroCard.astro";
+import QuotesCard from "../components/QuotesCard.astro";
+import ContactsCard from "../components/ContactsCard.astro";
+import AboutMe from "../components/AboutMe.astro";
+import { SITE } from "../site-config";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>My Astro Site</title>
-	</head>
-	<body>
-		<a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/blog">Blog</a>
-		
-		<h1>My Astro Site</h1>
-	</body>
-</html>
+<script>
+  import { stagger, animate, type AnimationSequence } from "motion";
+  import { loaderAnimation } from "../lib/constants";
+  const cards = document.querySelectorAll(".card");
+  const loader = document.querySelector(".loader");
+
+  const sequence = [
+    loaderAnimation,
+    [
+      cards,
+      { y: ["40%", "0%"], opacity: [0, 1] },
+      {
+        type: "spring",
+        at: "-0.1",
+        delay: stagger(0.2),
+      },
+    ],
+  ];
+
+  animate(sequence as AnimationSequence).finished.finally(() => {
+    loader?.remove();
+  });
+</script>
+
+<Layout
+  description={`I'm ${SITE.author.fullName}, a Computer Science student at Florida State University and Jr SOAR Engineer focused on cybersecurity, detection engineering, and CTFs.`}
+  title={`${SITE.author.fullName} - ${SITE.author.jobTitle}`}
+>
+  <main
+    class="text-white m-auto p-2 grid gap-2 max-w-6xl overflow-hidden relative w-full sm:p-4 sm:gap-2 md:grid-cols-2 md:gap-3 md:p-6 lg:h-screen lg:grid-rows-8 lg:grid-cols-4 lg:gap-4 lg:max-h-[800px]"
+  >
+    <IntroCard />
+    <AboutMe />
+    <QuotesCard />
+    <ContactsCard />
+    <Card
+      href="/projects"
+      colSpan="md:col-span-2"
+      rowSpan="md:row-span-2"
+      title="Projects"
+    >
+      <p class="text-sm text-darkslate-300 m-0">
+        Homelab SIEM · PE malware research · Gym App
+      </p>
+    </Card>
+    <Card
+      href="/blog"
+      colSpan="md:col-span-2"
+      rowSpan="md:row-span-2"
+      title="Blog"
+    />
+    <Card colSpan="md:col-span-1" rowSpan="md:row-span-1">
+      <p class="text-xs">
+        © {new Date().getFullYear()} · Crafted with Astro by {SITE.author.shortName}.
+      </p>
+    </Card>
+  </main>
+</Layout>

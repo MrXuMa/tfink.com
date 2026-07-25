@@ -1,0 +1,95 @@
+---
+import Card from "./Card/index.astro";
+
+const quotes = [
+  "A problem well-stated is half-solved.",
+  "Hard work beats talent when talent doesn't work hard.",
+  "There are two types of companies: those who have been hacked, and those who still haven't found the flag in their logs.",
+  "Curiosity is the best exploit.",
+  "Persistence beats talent when talent doesn't persist.",
+];
+---
+
+<Card
+  colSpan="md:col-span-3"
+  rowSpan="md:row-span-1"
+  padding="px-4 py-2"
+  height="min-h-0 h-auto md:h-full"
+>
+  <div class="flex items-center gap-2 h-full min-h-[2rem]">
+    <span class="text-primary-500 select-none" aria-hidden="true">&gt;</span>
+    <p
+      id="quote-text"
+      class="m-0 text-sm font-light text-darkslate-100 flex-1 whitespace-normal"
+      aria-live="polite"
+    ></p>
+    <span
+      id="quote-cursor"
+      class="inline-block w-[2px] h-[1em] bg-primary-500 shrink-0 quote-cursor"
+      aria-hidden="true"
+    ></span>
+  </div>
+</Card>
+
+<script define:vars={{ quotes }}>
+  const HOLD_MS = 30_000;
+  const TYPE_MS = 28;
+  const DELETE_MS = 16;
+
+  const textEl = document.getElementById("quote-text");
+  if (!textEl || !quotes?.length) {
+    // no-op
+  } else {
+    let index = 0;
+    let cancelled = false;
+
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+    async function typeText(full) {
+      textEl.textContent = "";
+      for (let i = 0; i < full.length; i++) {
+        if (cancelled) return;
+        textEl.textContent = full.slice(0, i + 1);
+        await sleep(TYPE_MS);
+      }
+    }
+
+    async function deleteText() {
+      const full = textEl.textContent || "";
+      for (let i = full.length; i >= 0; i--) {
+        if (cancelled) return;
+        textEl.textContent = full.slice(0, i);
+        await sleep(DELETE_MS);
+      }
+    }
+
+    async function loop() {
+      while (!cancelled) {
+        const quote = quotes[index % quotes.length];
+        await typeText(quote);
+        await sleep(HOLD_MS);
+        await deleteText();
+        index += 1;
+        await sleep(400);
+      }
+    }
+
+    loop();
+
+    document.addEventListener("astro:before-preparation", () => {
+      cancelled = true;
+    });
+  }
+</script>
+
+<style>
+  .quote-cursor {
+    animation: quote-blink 1s step-end infinite;
+  }
+
+  @keyframes quote-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>

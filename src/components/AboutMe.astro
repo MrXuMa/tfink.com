@@ -1,0 +1,83 @@
+---
+import Card from "./Card/index.astro";
+import { SITE } from "../site-config";
+
+const stack = ["Python", "C++", "Docker", "VirtualBox"];
+const stack2 = ["Chronicle SOAR", "Proxmox", "Elastic Security","Detection Engineering"];
+const stack3 = ["Nmap", "Ghidra","Wireshark","BurpSuite"];
+const stack4 = ["PyTorch","scikit-learn"]
+---
+
+<Card colSpan="md:col-span-1" rowSpan="md:row-span-8" title="About me">
+  <div class="flex flex-col gap-5 h-full">
+    <p class="m-0 text-sm font-light leading-relaxed">
+      Hi, I'm <b class="font-bold">{SITE.author.firstName}</b>, an aspiring
+      security professional from the United States.
+    </p>
+
+    <div class="flex flex-col gap-3">
+      <h3
+        class="m-0 text-xs font-medium tracking-widest uppercase text-darkslate-300"
+      >
+        Languages and Tools
+      </h3>
+      <ul class="flex flex-wrap gap-2 list-none p-0 m-0">
+        {
+          stack.map((item) => (
+            <li class="text-[11px] leading-snug px-2 py-1 rounded-full border border-darkslate-400 bg-darkslate-600 text-darkslate-100">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="flex flex-col gap-3">
+      <h3
+        class="m-0 text-xs font-medium tracking-widest uppercase text-darkslate-300"
+      >
+        Defensive Security
+      </h3>
+      <ul class="flex flex-wrap gap-2 list-none p-0 m-0">
+        {
+          stack2.map((item) => (
+            <li class="text-[11px] leading-snug px-2 py-1 rounded-full border border-darkslate-400 bg-darkslate-600 text-darkslate-100">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="flex flex-col gap-3">
+      <h3
+        class="m-0 text-xs font-medium tracking-widest uppercase text-darkslate-300"
+      >
+        Offensive Security
+      </h3>
+      <ul class="flex flex-wrap gap-2 list-none p-0 m-0">
+        {
+          stack3.map((item) => (
+            <li class="text-[11px] leading-snug px-2 py-1 rounded-full border border-darkslate-400 bg-darkslate-600 text-darkslate-100">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="flex flex-col gap-3">
+      <h3
+        class="m-0 text-xs font-medium tracking-widest uppercase text-darkslate-300"
+      >
+        AI
+      </h3>
+      <ul class="flex flex-wrap gap-2 list-none p-0 m-0">
+        {
+          stack4.map((item) => (
+            <li class="text-[11px] leading-snug px-2 py-1 rounded-full border border-darkslate-400 bg-darkslate-600 text-darkslate-100">
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Card>
