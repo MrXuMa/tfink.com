@@ -37,7 +37,7 @@ const {
 >
   {
     href ? (
-      <a class={`h-full w-full min-h-0 flex flex-col ${colorText || ""}`} href={href}>
+      <a class={`h-full w-full ${colorText || ""}`} href={href}>
         <Icon
           class="h-6 float-right group-hover:text-primary-500 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform ease-in-out duration-100 z-20"
           name="ri:arrow-right-up-line"
@@ -47,11 +47,9 @@ const {
         </Content>
       </a>
     ) : (
-      <div class="h-full min-h-0">
-        <Content body={body} title={title}>
-          <slot />
-        </Content>
-      </div>
+      <Content body={body} title={title}>
+        <slot />
+      </Content>
     )
   }
 </div>
